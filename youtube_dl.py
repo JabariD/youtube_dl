@@ -32,6 +32,8 @@ class YouTube_DL:
         parser = argparse.ArgumentParser()
         parser.add_argument('link', type=str, help="Must include YouTube link") # required arg
         parser.add_argument('--list', '-l', action="store_true", help="Lists all streams for this YouTube video.") # optional arg
+        parser.add_argument('--output_path', '-o', type=str, help="Set output path of the downloaded video. Enter any relative path using . or absolute path") # optional arg
+        parser.add_argument('--file_name', '-n', type=str, help="Set name of file.") # optional arg
         parser.add_argument('--withvideo', '-wv', action="store_true", help="Specifies to download any stream with video. Starts at 720p then looks for 480p.") # optional arg
         # Note Progressive only starts at 720p. We need a Stream with both the audio and video. Read more into it here: https://pytube.io/en/latest/user/streams.html#dash-vs-progressive-streams
         parser.add_argument('--format', '-f', type=str, help="Format for either audio or video you input then downloads it.") # optional arg
@@ -90,7 +92,7 @@ class YouTube_DL:
         else:
             print("There were no streams found for your current arguments. Unable to download. Try running... 'python youtube_dl.py " + self.args.link + " -l' to take a look at the available streams for this video.")
 
-    # Download a specifc stream
+    # Download a specific stream
     def download_stream(self, stream):
         """
         Downloads a specific stream to the specified folder.
@@ -101,7 +103,10 @@ class YouTube_DL:
         print(f"The approx file size is: {self.get_file_size(stream)} mb")
         # Download
         print("Downloading...")
-        stream.download()
+        
+        if self.args.file_name != None:
+            self.args.file_name = self.args.file_name + '.mp4'
+        stream.download(self.args.output_path, self.args.file_name)
         print(f"Your video: '{self.url.title}' has downloaded. 🎉")
     
     # Filters list of streams only if they contain mp4 videos

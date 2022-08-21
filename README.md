@@ -8,8 +8,11 @@
 
 | Command |  Description  |
 |---|---|
-| python youtube_dl.py <youtube_link>  |  Downloads the audio only |
-|  python youtube_dl.py -h | Help. Displays the rest of the commands  |
+| python youtube_dl.py <youtube_link>  |  Downloads the audio only. |
+| python youtube_dl.py <youtube_link> -l |  Lists all available streams for this YouTube video. |
+| python youtube_dl.py <youtube_link> -wv |  With video downloads the highest quality stream with video. |
+| python youtube_dl.py <youtube_link> -f 720p |  Allows you to specify a video resolution or kbps rate to look for. |
+|  python youtube_dl.py -h | Help. Displays all of the commands  |
 
 ## Current Plan
 I plan to add a bit more. More arguments, specification, and tests.
